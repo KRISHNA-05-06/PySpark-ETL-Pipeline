@@ -33,73 +33,61 @@ grocery_etl/
 ├── requirements.txt
 └── README.md
 
+⚙️ Technologies Used
+Python
+PySpark (Spark 4.0)
+Pandas (for local CSV output)
+Logging module
 
----
+🔄 ETL Pipeline Workflow
 
-## ⚙️ Technologies Used
-- Python
-- PySpark (Spark 4.0)
-- Pandas (for local CSV output)
-- Logging module
+1. Extract
+Reads CSV files from multiple sources:
+Online orders
+Store orders
+Mobile orders
+Uses explicit schema to prevent data loss
+Handles malformed data using PERMISSIVE mode
+Combines datasets using unionByName
 
----
-
-## 🔄 ETL Pipeline Workflow
-
-### 1. Extract
-- Reads CSV files from multiple sources:
-  - Online orders
-  - Store orders
-  - Mobile orders
-- Uses **explicit schema** to prevent data loss
-- Handles malformed data using **PERMISSIVE mode**
-
----
-
-### 2. Transform
+2. Transform
 Data cleaning and standardization:
+✅ Standardized customer IDs → CUST_123
+💲 Cleaned price values (removed symbols, converted to numeric)
+📅 Parsed multiple date formats into a standard format
+🧹 Removed test and invalid records
+🔁 Eliminated duplicate orders
+📊 Added derived columns:
+total_amount
+processing_date
+year, month
 
-- ✅ Standardized customer IDs → `CUST_123`
-- 💲 Cleaned price values (removed symbols, converted to numeric)
-- 📅 Parsed multiple date formats into a standard format
-- 🧹 Removed test and invalid records
-- 🔁 Eliminated duplicate orders
-- 📊 Added derived columns:
-  - `total_amount`
-  - `processing_date`
-  - `year`, `month`
+3. Load
+Writes cleaned data to CSV (orders.csv)
+Uses Pandas for local development
+Production-ready alternative: Spark .write() APIs
 
----
+📊 Data Validation
 
-### 3. Load
-- Writes cleaned data to CSV (`orders.csv`)
-- Uses Pandas for local development
-- Production-ready alternative: Spark `.write()` APIs
+Performed sanity checks using Spark SQL:
 
----
+Total record count verification
+Zero-price detection
+Date range validation
 
-## 📊 Data Validation
-- Performed sanity checks using Spark SQL:
-  - Total record count
-  - Zero-price detection
-  - Date range validation
+📈 Summary Report
 
----
+Generates key metrics:
 
-## 📈 Summary Report
-Generates metrics such as:
-- Total orders processed
-- Unique customers and products
-- Total revenue
-- Date range
-- Regional distribution
+Total orders processed
+Unique customers
+Unique products
+Total revenue
+Date range
+Regional distribution
 
----
-
-## 🚀 How to Run
-
-### 1. Install dependencies
-```bash
+🚀 How to Run
+1. Install dependencies
 pip install -r requirements.txt
 2. Run the pipeline
 spark-submit main.py
@@ -108,23 +96,45 @@ spark-submit --driver-memory 4g main.py
 
 ⚠️ Key Learnings
 Built a complete ETL pipeline from scratch
-Learned to handle messy real-world data
+Handled messy real-world data (not just clean datasets)
 Used defensive data engineering techniques
 Implemented logging and error handling
-Understood Spark DataFrame transformations
+Applied modular ETL design (Extract → Transform → Load)
+Used Spark DataFrame transformations effectively
 Applied Spark SQL for validation
-Learned limitations of .toPandas() for large datasets
+Understood limitations of .toPandas() for large datasets
+
+🐞 Common Issues & Fixes
+Memory Error (OutOfMemoryError)
+spark-submit --driver-memory 4g main.py
+
+Or switch to Spark native writer:
+
+df.write.mode("overwrite").option("header", "true").csv(output_path)
+Schema Issues
+df.printSchema()
+print(df.columns)
+Slow Performance
+df.cache()
+df.unpersist()
 
 🔮 Future Improvements
-Replace CSV output with Parquet
+Replace CSV output with Parquet format
 Add Airflow scheduling
-Implement data validation tests
-Optimize performance (caching, partitioning)
+Implement automated data quality tests
+Optimize performance (partitioning, caching)
 Deploy on AWS / Databricks
 
+📌 Example Output
+
+The cleaned dataset includes:
+Standardized customer IDs
+Parsed dates
+Clean numeric prices
+Calculated revenue fields
+
 👨‍💻 Author
+
 Sri Krishna Sai Kota
-MS Computer Science @ USF
-=======
-# PySpark-ETL-Pipeline
->>>>>>> bcef8be37cc43a5104dfb4d6d20dcb7facc9e6c3
+MS Computer Science @ University of South Florida
+Aspiring Data Engineer
