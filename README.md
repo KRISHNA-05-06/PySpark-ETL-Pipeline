@@ -46,6 +46,7 @@ Reads CSV files from multiple sources:
 Online orders
 Store orders
 Mobile orders
+
 Uses explicit schema to prevent data loss
 Handles malformed data using PERMISSIVE mode
 Combines datasets using unionByName
@@ -66,6 +67,8 @@ year, month
 Writes cleaned data to CSV (orders.csv)
 Uses Pandas for local development
 Production-ready alternative: Spark .write() APIs
+
+
 📊 Data Validation
 
 Performed sanity checks using Spark SQL:
@@ -73,6 +76,7 @@ Performed sanity checks using Spark SQL:
 Total record count verification
 Zero-price detection
 Date range validation
+
 
 📈 Summary Report
 
@@ -85,7 +89,9 @@ Total revenue
 Date range
 Regional distribution
 
+
 🚀 How to Run
+
 1. Install dependencies
 pip install -r requirements.txt
 2. Run the pipeline
@@ -93,7 +99,9 @@ spark-submit main.py
 3. (Optional) Increase memory
 spark-submit --driver-memory 4g main.py
 
+
 ⚠️ Key Learnings
+
 Built a complete ETL pipeline from scratch
 Handled messy real-world data (not just clean datasets)
 Used defensive data engineering techniques
@@ -104,11 +112,10 @@ Applied Spark SQL for validation
 Understood limitations of .toPandas() for large datasets
 
 🐞 Common Issues & Fixes
+
 Memory Error (OutOfMemoryError)
 spark-submit --driver-memory 4g main.py
-
 Or switch to Spark native writer:
-
 df.write.mode("overwrite").option("header", "true").csv(output_path)
 Schema Issues
 df.printSchema()
@@ -117,12 +124,15 @@ Slow Performance
 df.cache()
 df.unpersist()
 
+
 🔮 Future Improvements
+
 Replace CSV output with Parquet format
 Add Airflow scheduling
 Implement automated data quality tests
 Optimize performance (partitioning, caching)
 Deploy on AWS / Databricks
+
 
 📌 Example Output
 
@@ -131,6 +141,7 @@ Standardized customer IDs
 Parsed dates
 Clean numeric prices
 Calculated revenue fields
+
 
 👨‍💻 Author
 
