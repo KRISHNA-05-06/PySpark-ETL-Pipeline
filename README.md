@@ -20,17 +20,19 @@ The raw data had several inconsistencies:
 
 ## 🏗️ Project Structure
 
+
 grocery_etl/
-│── data/
-│ ├── raw/ # Raw input CSV files
-│ ├── processed/ # Cleaned output data
 │
-│── src/
+├── data/
+│ ├── raw/ # Raw input CSV files
+│ └── processed/ # Cleaned output data
+│
+├── src/
 │ └── etl_pipeline.py # ETL logic
 │
-│── main.py # Pipeline orchestration
-│── requirements.txt
-│── README.md
+├── main.py # Pipeline orchestration
+├── requirements.txt
+└── README.md
 
 
 ---
