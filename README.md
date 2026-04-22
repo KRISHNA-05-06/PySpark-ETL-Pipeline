@@ -66,7 +66,6 @@ year, month
 Writes cleaned data to CSV (orders.csv)
 Uses Pandas for local development
 Production-ready alternative: Spark .write() APIs
-
 📊 Data Validation
 
 Performed sanity checks using Spark SQL:
