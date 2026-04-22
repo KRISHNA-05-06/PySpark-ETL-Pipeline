@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # 🛒 Grocery ETL Pipeline using PySpark
 
 ## 📌 Overview
